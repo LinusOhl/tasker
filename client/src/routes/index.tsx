@@ -1,11 +1,21 @@
+import { Button } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
-import { Layout } from "../components/Layout";
+import classes from "../styles/Demo.module.css";
 
 const Index = () => {
   return (
-    <Layout>
-      <h1>tasker</h1>
-    </Layout>
+    <div className={classes.bg}>
+      <p>test</p>
+
+      <Button
+        size="lg"
+        variant="gradient"
+        gradient={{ from: "#52525B", to: "#3F3F46", deg: 60 }}
+        classNames={{ root: classes.root, label: classes.label }}
+      >
+        Click me!
+      </Button>
+    </div>
   );
 };
 

@@ -1,7 +1,8 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import "./styles/index.css";
-import { NextUIProvider } from "@nextui-org/react";
+import "@mantine/core/styles.css";
+import { MantineProvider, createTheme } from "@mantine/core";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
@@ -17,6 +18,10 @@ declare module "@tanstack/react-router" {
   }
 }
 
+const theme = createTheme({
+  fontFamily: "'Inria Sans', sans-serif",
+});
+
 // biome-ignore lint/style/noNonNullAssertion: This is a root file, so we can be sure that the element exists
 const rootElement = document.getElementById("app")!;
 if (!rootElement.innerHTML) {
@@ -24,12 +29,12 @@ if (!rootElement.innerHTML) {
   root.render(
     <StrictMode>
       <QueryClientProvider client={queryClient}>
-        <NextUIProvider>
-          <main className="font-body">
+        <MantineProvider theme={theme}>
+          <main>
             <RouterProvider router={router} />
             <ReactQueryDevtools initialIsOpen={false} />
           </main>
-        </NextUIProvider>
+        </MantineProvider>
       </QueryClientProvider>
     </StrictMode>,
   );

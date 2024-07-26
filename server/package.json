@@ -5,6 +5,7 @@
   "dependencies": {
     "@hono/node-server": "^1.11.1",
     "@prisma/client": "^5.14.0",
+    "dotenv": "^16.4.5",
     "hono": "^4.4.0",
     "zod": "^3.23.8"
   },
@@ -14,5 +15,8 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.7.1",
     "typescript": "^5.4.5"
+  },
+  "prisma": {
+    "schema": "prisma/schema.prisma"
   }
 }

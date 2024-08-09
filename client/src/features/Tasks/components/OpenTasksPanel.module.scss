@@ -1,0 +1,12 @@
+.tasksContainer {
+  margin-top: 1rem;
+
+  & > :first-child {
+    border-top: 1px solid var(--mantine-color-gray-3);
+    border-bottom: 1px solid var(--mantine-color-gray-3);
+  }
+
+  & > :not(:first-child) {
+    border-bottom: 1px solid var(--mantine-color-gray-3);
+  }
+}

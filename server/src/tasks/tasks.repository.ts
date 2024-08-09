@@ -1,5 +1,5 @@
 import { PrismaClient, type Task, TaskStatus } from "@prisma/client";
-import type { TaskInput } from "./tasks.schema";
+import type { TaskInput, UpdateTaskInput } from "./tasks.schema";
 const prisma = new PrismaClient();
 
 export const createTask = async (data: TaskInput): Promise<Task> => {
@@ -16,6 +16,29 @@ export const createTask = async (data: TaskInput): Promise<Task> => {
             id: data.createdById,
           },
         },
+      },
+    });
+    return task;
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+export const updateTask = async (
+  data: UpdateTaskInput,
+  taskId: string,
+): Promise<Task> => {
+  try {
+    const taskStatus = TaskStatus[data.status as keyof typeof TaskStatus];
+    const task = await prisma.task.update({
+      where: {
+        id: taskId,
+      },
+      data: {
+        title: data.title,
+        description: data.description,
+        status: taskStatus,
+        priority: data.priority,
       },
     });
     return task;

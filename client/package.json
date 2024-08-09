@@ -18,7 +18,6 @@
     "@tanstack/react-router": "^1.34.3",
     "dayjs": "^1.11.11",
     "framer-motion": "^11.2.6",
-    "json-server": "^1.0.0-beta.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.2.1"

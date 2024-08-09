@@ -1,19 +1,35 @@
-import { Button } from "@mantine/core";
-import { createFileRoute } from "@tanstack/react-router";
-import classes from "../styles/Demo.module.css";
+import { Button, Title, useMantineColorScheme } from "@mantine/core";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import classes from "./Index.module.scss";
 
 const Index = () => {
-  return (
-    <div className={classes.bg}>
-      <p>test</p>
+  const navigate = useNavigate();
+  const { colorScheme, setColorScheme } = useMantineColorScheme();
 
-      <Button
-        size="lg"
-        variant="gradient"
-        gradient={{ from: "#52525B", to: "#3F3F46", deg: 60 }}
-        classNames={{ root: classes.root, label: classes.label }}
-      >
-        Click me!
+  const toggleColorScheme = () => {
+    setColorScheme(colorScheme === "dark" ? "light" : "dark");
+  };
+
+  const onLogIn = () => {
+    navigate({ to: "/home" });
+  };
+
+  const onSignUp = () => {
+    console.log("sign up");
+  };
+
+  return (
+    <div className={classes.container}>
+      <Title order={1}>Tasker</Title>
+
+      <Button onClick={toggleColorScheme}>Toggle theme</Button>
+
+      <Button size="lg" variant="filled" onClick={onLogIn} fullWidth>
+        Log in
+      </Button>
+
+      <Button size="lg" variant="outline" onClick={onSignUp} fullWidth>
+        Sign up
       </Button>
     </div>
   );

@@ -21,16 +21,10 @@ model Task {
   description String?
   status      TaskStatus
   priority    Int
-  assignee    User?      @relation(fields: [assigneeId], references: [id])
-  assigneeId  String?
-}
 
-enum TaskStatus {
-  BACKLOG
-  TODO
-  IN_PROGRESS
-  IN_REVIEW
-  DONE
+  // Relation to the user who created the task
+  createdBy   User   @relation("CreatedTasks", fields: [createdById], references: [id])
+  createdById String
 }
 
 model User {
@@ -39,5 +33,13 @@ model User {
   updatedAt DateTime @updatedAt
   email     String   @unique
   name      String?
-  tasks     Task[]
+
+  // Relation to tasks created by the user
+  createdTasks Task[] @relation("CreatedTasks")
+}
+
+enum TaskStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
 }

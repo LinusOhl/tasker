@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import "./styles/index.css";
+import "./styles/global.scss";
 import "@mantine/core/styles.css";
 import { MantineProvider, createTheme } from "@mantine/core";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -19,7 +19,7 @@ declare module "@tanstack/react-router" {
 }
 
 const theme = createTheme({
-  fontFamily: "'Inria Sans', sans-serif",
+  fontFamily: "Quicksand, sans-serif",
 });
 
 // biome-ignore lint/style/noNonNullAssertion: This is a root file, so we can be sure that the element exists
@@ -29,7 +29,7 @@ if (!rootElement.innerHTML) {
   root.render(
     <StrictMode>
       <QueryClientProvider client={queryClient}>
-        <MantineProvider theme={theme}>
+        <MantineProvider theme={theme} defaultColorScheme="light">
           <main>
             <RouterProvider router={router} />
             <ReactQueryDevtools initialIsOpen={false} />

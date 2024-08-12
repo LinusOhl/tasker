@@ -1,5 +1,6 @@
 import { PrismaClient, type Task, TaskStatus } from "@prisma/client";
 import type { TaskInput, UpdateTaskInput } from "./tasks.schema";
+
 const prisma = new PrismaClient();
 
 export const createTask = async (data: TaskInput): Promise<Task> => {

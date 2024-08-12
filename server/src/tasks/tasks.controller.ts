@@ -15,6 +15,8 @@ import {
 
 const app = new Hono();
 
+// TODO: implement authentication middleware using Supabase
+
 app.post("/", validationMiddleware<TaskInput>(taskSchema), async (c) => {
   try {
     const body = c.req.valid("json");

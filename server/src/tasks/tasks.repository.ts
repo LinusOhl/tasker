@@ -46,3 +46,16 @@ export const updateTask = async (
     await prisma.$disconnect();
   }
 };
+
+export const getTasksByUserId = async (userId: string): Promise<Task[]> => {
+  try {
+    const tasks = await prisma.task.findMany({
+      where: {
+        createdById: userId,
+      },
+    });
+    return tasks;
+  } finally {
+    await prisma.$disconnect();
+  }
+};

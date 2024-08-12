@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { validationMiddleware } from "../middlewares/validationMiddleware";
-import { createTask, updateTask } from "./tasks.repository";
+import { createTask, getTasksByUserId, updateTask } from "./tasks.repository";
 import {
   type TaskInput,
   type UpdateTaskInput,
@@ -36,5 +36,16 @@ app.put(
     }
   },
 );
+
+app.get("/user/:userId", async (c) => {
+  try {
+    const userId = c.req.param("userId");
+    const tasks = await getTasksByUserId(userId);
+    return c.json(tasks);
+  } catch (error) {
+    console.error(error);
+    return c.json({ error: "Internal server error" }, 500);
+  }
+});
 
 export default app;

@@ -59,3 +59,16 @@ export const getTasksByUserId = async (userId: string): Promise<Task[]> => {
     await prisma.$disconnect();
   }
 };
+
+export const getTaskById = async (taskId: string): Promise<Task | null> => {
+  try {
+    const task = await prisma.task.findUnique({
+      where: {
+        id: taskId,
+      },
+    });
+    return task;
+  } finally {
+    await prisma.$disconnect();
+  }
+};

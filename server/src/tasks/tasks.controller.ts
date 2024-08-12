@@ -1,6 +1,11 @@
 import { Hono } from "hono";
 import { validationMiddleware } from "../middlewares/validationMiddleware";
-import { createTask, getTasksByUserId, updateTask } from "./tasks.repository";
+import {
+  createTask,
+  getTaskById,
+  getTasksByUserId,
+  updateTask,
+} from "./tasks.repository";
 import {
   type TaskInput,
   type UpdateTaskInput,
@@ -42,6 +47,17 @@ app.get("/user/:userId", async (c) => {
     const userId = c.req.param("userId");
     const tasks = await getTasksByUserId(userId);
     return c.json(tasks);
+  } catch (error) {
+    console.error(error);
+    return c.json({ error: "Internal server error" }, 500);
+  }
+});
+
+app.get("/:taskId", async (c) => {
+  try {
+    const taskId = c.req.param("taskId");
+    const task = await getTaskById(taskId);
+    return c.json(task);
   } catch (error) {
     console.error(error);
     return c.json({ error: "Internal server error" }, 500);

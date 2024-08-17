@@ -16,6 +16,7 @@ const Index = () => {
 
   const onSignUp = () => {
     console.log("sign up");
+    navigate({ to: "/signup" });
   };
 
   return (

@@ -13,6 +13,7 @@
   "dependencies": {
     "@mantine/core": "^7.11.0",
     "@mantine/hooks": "^7.11.0",
+    "@supabase/supabase-js": "^2.45.1",
     "@tanstack/react-query": "^5.39.0",
     "@tanstack/react-query-devtools": "^5.39.0",
     "@tanstack/react-router": "^1.34.3",

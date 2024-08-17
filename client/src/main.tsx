@@ -6,11 +6,19 @@ import { MantineProvider, createTheme } from "@mantine/core";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { AuthProvider } from "./contexts/AuthContext";
+import { useAuth } from "./hooks/useAuth";
 
 import { routeTree } from "./routeTree.gen";
 
 const queryClient = new QueryClient();
-const router = createRouter({ routeTree });
+const router = createRouter({
+  routeTree,
+  context: {
+    // biome-ignore lint/style/noNonNullAssertion: <explanation>
+    auth: undefined!,
+  },
+});
 
 declare module "@tanstack/react-router" {
   interface Register {
@@ -22,6 +30,16 @@ const theme = createTheme({
   fontFamily: "Quicksand, sans-serif",
 });
 
+const App = () => {
+  const auth = useAuth();
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} context={{ auth }} />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </AuthProvider>
+  );
+};
+
 // biome-ignore lint/style/noNonNullAssertion: This is a root file, so we can be sure that the element exists
 const rootElement = document.getElementById("app")!;
 if (!rootElement.innerHTML) {
@@ -30,10 +48,7 @@ if (!rootElement.innerHTML) {
     <StrictMode>
       <QueryClientProvider client={queryClient}>
         <MantineProvider theme={theme} defaultColorScheme="light">
-          <main>
-            <RouterProvider router={router} />
-            <ReactQueryDevtools initialIsOpen={false} />
-          </main>
+          <App />
         </MantineProvider>
       </QueryClientProvider>
     </StrictMode>,

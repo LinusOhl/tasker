@@ -11,7 +11,7 @@ const Index = () => {
   };
 
   const onLogIn = () => {
-    navigate({ to: "/home" });
+    navigate({ to: "/signin" });
   };
 
   const onSignUp = () => {

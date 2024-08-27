@@ -4,10 +4,8 @@ import "./styles/global.scss";
 import "@mantine/core/styles.css";
 import { MantineProvider, createTheme } from "@mantine/core";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { RouterProvider, createRouter } from "@tanstack/react-router";
-import { AuthProvider } from "./contexts/AuthContext";
-import { useAuth } from "./hooks/useAuth";
+import { createRouter } from "@tanstack/react-router";
+import { App } from "./App";
 
 import { routeTree } from "./routeTree.gen";
 
@@ -29,16 +27,6 @@ declare module "@tanstack/react-router" {
 const theme = createTheme({
   fontFamily: "Quicksand, sans-serif",
 });
-
-const App = () => {
-  const auth = useAuth();
-  return (
-    <AuthProvider>
-      <RouterProvider router={router} context={{ auth }} />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </AuthProvider>
-  );
-};
 
 // biome-ignore lint/style/noNonNullAssertion: This is a root file, so we can be sure that the element exists
 const rootElement = document.getElementById("app")!;

@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { FaChevronRight } from "react-icons/fa6";
-import { Priority } from "../Priority/Priority";
+import { Priority } from "../../atom/Priority/Priority";
 import { getStatusColor, getStatusText } from "./TaskListItem.helper";
 
 interface TaskListItemProps {

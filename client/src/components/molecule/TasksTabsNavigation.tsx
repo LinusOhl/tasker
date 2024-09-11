@@ -1,7 +1,7 @@
 import { Tabs } from "@mantine/core";
 import { useState } from "react";
-import { ClosedTasksPanel } from "./ClosedTasksPanel";
-import { OpenTasksPanel } from "./OpenTasksPanel";
+import { ClosedTasksPanel } from "../organisms/ClosedTasksPanel";
+import { OpenTasksPanel } from "../organisms/OpenTasksPanel/OpenTasksPanel";
 
 export const TasksTabsNavigation = () => {
   const [activeTab, setActiveTab] = useState<string | null>("open_tasks");

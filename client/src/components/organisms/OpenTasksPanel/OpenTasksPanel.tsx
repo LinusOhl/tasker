@@ -2,8 +2,8 @@ import { Box, Flex, Select, TextInput, Title } from "@mantine/core";
 import { FaSearch } from "react-icons/fa";
 import { useAuth } from "../../../hooks/useAuth";
 import { useTasksByUserId } from "../../../hooks/useTasksByUserId";
+import { TaskListItem } from "../../molecule/TaskListItem/TaskListItem";
 import classes from "./OpenTasksPanel.module.scss";
-import { TaskListItem } from "./TaskListItem/TaskListItem";
 
 export const OpenTasksPanel = () => {
   const auth = useAuth();

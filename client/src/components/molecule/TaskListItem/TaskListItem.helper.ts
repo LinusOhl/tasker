@@ -1,4 +1,4 @@
-import { TASK_STATUS } from "../../../../helpers";
+import { TASK_STATUS } from "../../../helpers";
 
 export const getStatusColor = (status: string) => {
   switch (status) {

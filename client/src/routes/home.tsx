@@ -1,7 +1,7 @@
 import { Button, Title } from "@mantine/core";
 import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
+import { TasksTabsNavigation } from "../components/molecule/TasksTabsNavigation";
 import { TaskCreationModal } from "../components/organisms/TaskCreationModal/TaskCreationModal";
-import { TasksTabsNavigation } from "../features/Tasks/components/TasksTabsNavigation";
 import { useAuth } from "../hooks/useAuth";
 
 const Home = () => {

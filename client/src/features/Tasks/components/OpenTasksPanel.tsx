@@ -1,9 +1,15 @@
 import { Box, Flex, Select, TextInput, Title } from "@mantine/core";
 import { FaSearch } from "react-icons/fa";
+import { useAuth } from "../../../hooks/useAuth";
+import { useTasksByUserId } from "../../../hooks/useTasksByUserId";
 import classes from "./OpenTasksPanel.module.scss";
 import { TaskListItem } from "./TaskListItem/TaskListItem";
 
 export const OpenTasksPanel = () => {
+  const auth = useAuth();
+
+  const { data } = useTasksByUserId(auth.user?.id ?? "");
+
   return (
     <div>
       <Box px={"xs"} mt={"md"}>
@@ -26,48 +32,16 @@ export const OpenTasksPanel = () => {
       </Box>
 
       <Flex direction={"column"} className={classes.tasksContainer}>
-        <TaskListItem
-          title="Task title 1"
-          description="Task description 1"
-          status="In progress"
-          assignee="JD"
-          priority="High"
-        />
-        <TaskListItem
-          title="Task title 2"
-          description="Task description 2"
-          status="In progress"
-          assignee="MK"
-          priority="Low"
-        />
-        <TaskListItem
-          title="Task title 3"
-          description="Task description 3"
-          status="Not started"
-          assignee="JD"
-          priority="Low"
-        />
-        <TaskListItem
-          title="Task title 4"
-          description="Task description 4"
-          status="In progress"
-          assignee="SL"
-          priority="Medium"
-        />
-        <TaskListItem
-          title="Task title 5"
-          description="Task description 5"
-          status="Completed"
-          assignee={["AC", "DC"]}
-          priority="High"
-        />
-        <TaskListItem
-          title="Task title 6"
-          description="Task description 6"
-          status="Completed"
-          assignee="AC"
-          priority="Low"
-        />
+        {data?.map((task) => (
+          <TaskListItem
+            key={task.id}
+            title={task.title}
+            description={task.description ?? ""}
+            status={task.status}
+            assignee={task.createdById.slice(0, 2)}
+            priority={String(task.priority)}
+          />
+        ))}
       </Flex>
     </div>
   );

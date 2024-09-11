@@ -2,7 +2,7 @@ import type { User } from "@supabase/supabase-js";
 import { createContext, useEffect, useState } from "react";
 import supabase from "../utils/supabase";
 
-interface AuthContextType {
+export interface AuthContextType {
   user: User | null;
   signUp: (email: string, password: string) => Promise<User | null>;
   signIn: (email: string, password: string) => Promise<User | null>;

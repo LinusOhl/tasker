@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 import { FaChevronRight } from "react-icons/fa6";
 import { Priority } from "../Priority/Priority";
-import { getStatusColor } from "./TaskListItem.helper";
+import { getStatusColor, getStatusText } from "./TaskListItem.helper";
 
 interface TaskListItemProps {
   title: string;
@@ -54,7 +54,7 @@ export const TaskListItem = ({
       {/* Footer */}
       <Flex gap={"xs"} justify={"space-between"} align={"center"}>
         <Badge size="md" variant="light" color={getStatusColor(status)}>
-          {status}
+          {getStatusText(status)}
         </Badge>
 
         {Array.isArray(assignee) ? (

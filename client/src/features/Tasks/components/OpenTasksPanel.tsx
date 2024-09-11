@@ -22,11 +22,13 @@ export const OpenTasksPanel = () => {
             label={"Task status"}
             placeholder="All"
             data={["All", "Not started", "In progress", "Completed"]}
+            defaultValue={"All"}
           />
           <Select
             label={"Task priority"}
             placeholder="All"
             data={["All", "Low", "Medium", "High"]}
+            defaultValue={"All"}
           />
         </Flex>
       </Box>

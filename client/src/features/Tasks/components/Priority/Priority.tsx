@@ -1,6 +1,6 @@
 import { Flex, Text, ThemeIcon } from "@mantine/core";
 import { FaAngleDown, FaAngleUp, FaEquals } from "react-icons/fa6";
-import { getPriorityColor } from "./Priority.helper";
+import { getPriorityColor, getPriorityText } from "./Priority.helper";
 
 interface PriorityProps {
   priority: string;
@@ -9,11 +9,11 @@ interface PriorityProps {
 export const Priority = ({ priority }: PriorityProps) => {
   const getPriorityIcon = () => {
     switch (priority) {
-      case "Low":
+      case "0":
         return <FaAngleDown />;
-      case "Medium":
+      case "1":
         return <FaEquals />;
-      case "High":
+      case "2":
         return <FaAngleUp />;
       default:
         return <FaEquals />;
@@ -22,7 +22,7 @@ export const Priority = ({ priority }: PriorityProps) => {
 
   return (
     <Flex align={"center"} gap={"xs"}>
-      <Text>{priority}</Text>
+      <Text>{getPriorityText(priority)}</Text>
       <ThemeIcon
         size={"sm"}
         variant="light"

@@ -1,16 +1,10 @@
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
-import { AuthProvider } from "./contexts/AuthContext";
+import { type AuthContextType, AuthProvider } from "./contexts/AuthContext";
 import { useAuth } from "./hooks/useAuth";
 import { routeTree } from "./routeTree.gen";
 
-export const App = () => {
-  const auth = useAuth();
-
-  if (auth.loading) {
-    return <div>Loading...</div>;
-  }
-
+const MainApp = ({ auth }: { auth: AuthContextType }) => {
   const router = createRouter({
     routeTree,
     context: {
@@ -19,9 +13,27 @@ export const App = () => {
   });
 
   return (
-    <AuthProvider>
+    <>
       <RouterProvider router={router} />
       <ReactQueryDevtools initialIsOpen={false} />
+    </>
+  );
+};
+
+const AuthWrapper = () => {
+  const auth = useAuth();
+
+  if (auth.loading) {
+    return <div>Loading...</div>;
+  }
+
+  return <MainApp auth={auth} />;
+};
+
+export const App = () => {
+  return (
+    <AuthProvider>
+      <AuthWrapper />
     </AuthProvider>
   );
 };

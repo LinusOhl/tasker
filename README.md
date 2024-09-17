@@ -28,4 +28,5 @@ Tasker is a full-stack task management web application.
 * [NodeJS](https://nodejs.org/en)
 * [Hono](https://hono.dev/)
 * [Prisma](https://www.prisma.io/)
+* [PostgreSQL](https://www.postgresql.org/)
 * [Supabase](https://supabase.com/)

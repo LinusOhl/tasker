@@ -1,5 +1,7 @@
 export type Task = {
   id: string;
+  createdAt: string;
+  updatedAt: string;
   title: string;
   description?: string;
   status: string;
@@ -7,4 +9,11 @@ export type Task = {
   createdById: string;
 };
 
-export type CreateTaskData = Omit<Task, "id">;
+export type UpdateTaskData = {
+  title?: string;
+  description?: string;
+  status?: string;
+  priority?: number;
+};
+
+export type CreateTaskData = Omit<Task, "id" | "createdAt" | "updatedAt">;

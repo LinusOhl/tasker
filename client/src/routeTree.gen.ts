@@ -15,6 +15,7 @@ import { Route as SignupImport } from './routes/signup'
 import { Route as SigninImport } from './routes/signin'
 import { Route as HomeImport } from './routes/home'
 import { Route as IndexImport } from './routes/index'
+import { Route as TasksTaskIdImport } from './routes/tasks.$taskId'
 
 // Create/Update Routes
 
@@ -35,6 +36,11 @@ const HomeRoute = HomeImport.update({
 
 const IndexRoute = IndexImport.update({
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const TasksTaskIdRoute = TasksTaskIdImport.update({
+  path: '/tasks/$taskId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -70,6 +76,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupImport
       parentRoute: typeof rootRoute
     }
+    '/tasks/$taskId': {
+      id: '/tasks/$taskId'
+      path: '/tasks/$taskId'
+      fullPath: '/tasks/$taskId'
+      preLoaderRoute: typeof TasksTaskIdImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -80,6 +93,7 @@ export const routeTree = rootRoute.addChildren({
   HomeRoute,
   SigninRoute,
   SignupRoute,
+  TasksTaskIdRoute,
 })
 
 /* prettier-ignore-end */
@@ -93,7 +107,8 @@ export const routeTree = rootRoute.addChildren({
         "/",
         "/home",
         "/signin",
-        "/signup"
+        "/signup",
+        "/tasks/$taskId"
       ]
     },
     "/": {
@@ -107,6 +122,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/signup": {
       "filePath": "signup.tsx"
+    },
+    "/tasks/$taskId": {
+      "filePath": "tasks.$taskId.tsx"
     }
   }
 }

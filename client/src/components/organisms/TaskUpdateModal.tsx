@@ -25,6 +25,11 @@ export const TaskUpdateModal = ({ task }: TaskUpdateModalProps) => {
     task.priority,
   );
 
+  console.log("taskTitle:", taskTitle);
+  console.log("taskDescription:", taskDescription);
+  console.log("taskStatus:", taskStatus);
+  console.log("taskPriority:", taskPriority);
+
   const getCorrectTaskStatus = () => {
     switch (task.status) {
       case "NOT_STARTED":
@@ -47,18 +52,33 @@ export const TaskUpdateModal = ({ task }: TaskUpdateModalProps) => {
     }
   };
 
+  const convertTaskPriority = (value: string) => {
+    switch (value) {
+      case "Low":
+        return 0;
+      case "Medium":
+        return 1;
+      case "High":
+        return 2;
+      default:
+        return 0;
+    }
+  };
+
   const handleUpdateTask = async () => {
     if (!user) return;
 
     // TODO: clean this up!
-    if (!taskStatus || !taskPriority) return;
+    // if (!taskStatus || !taskPriority) return;
 
     const updatedTask: UpdateTaskData = {
       title: taskTitle,
       description: taskDescription,
-      status: getTaskStatusEnum(taskStatus),
-      priority: taskPriority,
+      status: getTaskStatusEnum(taskStatus ?? ""),
+      priority: taskPriority ?? 0,
     };
+
+    console.log("updating task:", updatedTask);
 
     updateTaskMutation.mutate({ taskId: task.id, taskData: updatedTask });
 
@@ -92,7 +112,7 @@ export const TaskUpdateModal = ({ task }: TaskUpdateModalProps) => {
             placeholder="Choose priority"
             data={["Low", "Medium", "High"]}
             value={getCorrectTaskPriority()}
-            onChange={(e) => setTaskPriority(Number(e))}
+            onChange={(e) => setTaskPriority(convertTaskPriority(e ?? ""))}
           />
         </Flex>
 

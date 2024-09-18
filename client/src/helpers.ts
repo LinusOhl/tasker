@@ -6,6 +6,12 @@ export enum TASK_STATUS {
   COMPLETED = "COMPLETED",
 }
 
+export enum TASK_PRIORITY {
+  LOW = 0,
+  MEDIUM = 1,
+  HIGH = 2,
+}
+
 export const getTaskStatusEnum = (status: string) => {
   switch (status) {
     case "Not started":

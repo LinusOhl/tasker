@@ -2,7 +2,7 @@ import { Avatar, Box, Button, Center, Flex, Text, Title } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import { Priority } from "../components/atom/Priority/Priority";
 import { Status } from "../components/atom/Status/Status";
-import { TaskUpdateModal } from "../components/organisms/TaskUpdateModal";
+import { TaskUpdateModal } from "../components/organisms/TaskUpdateModal/TaskUpdateModal";
 import { TASK_STATUS } from "../helpers";
 import { useTaskById } from "../hooks/useTaskById";
 import { useUpdateTask } from "../hooks/useUpdateTask";

@@ -2,6 +2,7 @@ import { Avatar, Box, Button, Center, Flex, Text, Title } from "@mantine/core";
 import { createFileRoute } from "@tanstack/react-router";
 import { Priority } from "../components/atom/Priority/Priority";
 import { Status } from "../components/atom/Status/Status";
+import { TaskUpdateModal } from "../components/organisms/TaskUpdateModal";
 import { TASK_STATUS } from "../helpers";
 import { useTaskById } from "../hooks/useTaskById";
 import { useUpdateTask } from "../hooks/useUpdateTask";
@@ -64,9 +65,7 @@ const TaskView = () => {
 
       {/* Actions */}
       <Flex direction={"column"} mt={"xl"} gap={"sm"}>
-        <Button size="lg" variant="outline" fullWidth>
-          Edit task
-        </Button>
+        <TaskUpdateModal task={data} />
         <Button size="lg" onClick={handleCompleteTask} fullWidth>
           Complete task
         </Button>

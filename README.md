@@ -7,7 +7,7 @@ Tasker is a full-stack task management web application.
 - [x] Create tasks.
 - [x] Browse created tasks.
 - [x] View details of a specific task.
-- [ ] Update a task.
+- [x] Update a task.
 - [x] Complete a task.
 - [ ] Search and sort tasks.
 - [ ] View closed tasks.

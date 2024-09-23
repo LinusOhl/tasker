@@ -1,7 +1,8 @@
 import { Avatar, Box, Button, Center, Flex, Text, Title } from "@mantine/core";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { Priority } from "../components/atom/Priority/Priority";
 import { Status } from "../components/atom/Status/Status";
+import { Navbar } from "../components/molecule/Navbar";
 import { TaskUpdateModal } from "../components/organisms/TaskUpdateModal/TaskUpdateModal";
 import { TASK_STATUS } from "../helpers";
 import { useTaskById } from "../hooks/useTaskById";
@@ -9,6 +10,7 @@ import { useUpdateTask } from "../hooks/useUpdateTask";
 
 const TaskView = () => {
   const { taskId } = Route.useParams();
+  const { history } = useRouter();
 
   const { data } = useTaskById(taskId);
 
@@ -27,6 +29,8 @@ const TaskView = () => {
 
   return (
     <Box px={"md"}>
+      <Navbar location="Task view" goBack={() => history.go(-1)} />
+
       {/* Status and priority */}
       <Center py={"xl"}>
         <Flex direction={"column"} align={"center"} gap={"xs"}>

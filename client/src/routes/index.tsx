@@ -1,14 +1,8 @@
-import { Button, Title, useMantineColorScheme } from "@mantine/core";
+import { Box, Button, Container, Flex, Text, Title } from "@mantine/core";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import classes from "./Index.module.scss";
 
 const Index = () => {
   const navigate = useNavigate();
-  const { colorScheme, setColorScheme } = useMantineColorScheme();
-
-  const toggleColorScheme = () => {
-    setColorScheme(colorScheme === "dark" ? "light" : "dark");
-  };
 
   const onLogIn = () => {
     navigate({ to: "/signin" });
@@ -20,19 +14,24 @@ const Index = () => {
   };
 
   return (
-    <div className={classes.container}>
-      <Title order={1}>Tasker</Title>
+    <Container>
+      <Flex direction={"column"} gap={"xl"} align={"center"}>
+        <Box ta={"center"}>
+          <Title order={1}>tasker</Title>
+          <Text>a full-stack task management web application</Text>
+        </Box>
 
-      <Button onClick={toggleColorScheme}>Toggle theme</Button>
+        <Flex direction={"column"} gap={"sm"} w={"100%"}>
+          <Button size="lg" variant="filled" onClick={onLogIn} fullWidth>
+            Log in
+          </Button>
 
-      <Button size="lg" variant="filled" onClick={onLogIn} fullWidth>
-        Log in
-      </Button>
-
-      <Button size="lg" variant="outline" onClick={onSignUp} fullWidth>
-        Sign up
-      </Button>
-    </div>
+          <Button size="lg" variant="outline" onClick={onSignUp} fullWidth>
+            Sign up
+          </Button>
+        </Flex>
+      </Flex>
+    </Container>
   );
 };
 

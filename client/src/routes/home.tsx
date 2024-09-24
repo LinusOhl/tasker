@@ -15,7 +15,7 @@ const Home = () => {
 
   return (
     <div>
-      <Title order={1}>Hiya, {userFromHook?.email}</Title>
+      <Title order={2}>Hiya, {userFromHook?.email}</Title>
 
       <Button onClick={handleSignOut}>Sign out</Button>
 

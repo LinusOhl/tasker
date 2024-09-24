@@ -1,6 +1,7 @@
-import { Button, TextInput } from "@mantine/core";
+import { Box, Button, Card, Flex, TextInput } from "@mantine/core";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { Navbar } from "../components/molecule/Navbar";
 import { useAuth } from "../hooks/useAuth";
 
 const SignIn = () => {
@@ -25,24 +26,30 @@ const SignIn = () => {
   };
 
   return (
-    <div>
-      <h1>Sign in</h1>
+    <>
+      <Navbar location="Sign in" goBack={() => navigate({ to: "/" })} />
 
-      <TextInput
-        label="Email"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <TextInput
-        label="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      <Box p={"sm"}>
+        <Card shadow="sm" withBorder>
+          <Flex direction={"column"} gap={"md"} mb={"lg"}>
+            <TextInput
+              label="Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextInput
+              label="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Flex>
 
-      <Button onClick={handleSubmit}>Sign in</Button>
-    </div>
+          <Button onClick={handleSubmit}>Sign in</Button>
+        </Card>
+      </Box>
+    </>
   );
 };
 

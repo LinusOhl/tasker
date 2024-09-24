@@ -1,6 +1,7 @@
 import { Box, Flex, Select, Text, TextInput, Title } from "@mantine/core";
 import { useMemo, useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { TASK_PRIORITY, TASK_STATUS } from "../../../helpers";
 import { useAuth } from "../../../hooks/useAuth";
 import { useTasksByUserId } from "../../../hooks/useTasksByUserId";
 import { TaskListItem } from "../../molecule/TaskListItem";
@@ -11,17 +12,45 @@ export const OpenTasksPanel = () => {
 
   const { data: tasks } = useTasksByUserId(auth.user?.id ?? "");
 
-  // State for search filtering
+  // State for search, status, and priority filtering
   const [searchInput, setSearchInput] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState<string | null>("All");
+  const [selectedPriority, setSelectedPriority] = useState<string | null>(
+    "All",
+  );
 
-  // Returns all tasks if no searchInput, otherwise the filtered tasks.
+  // Task status & priority options
+  const statusOptions = [
+    { value: "All", label: "All" },
+    { value: TASK_STATUS.NOT_STARTED, label: "Not started" },
+    { value: TASK_STATUS.IN_PROGRESS, label: "In progress" },
+    { value: TASK_STATUS.COMPLETED, label: "Completed" },
+  ];
+
+  const priorityOptions = [
+    { value: "All", label: "All" },
+    { value: String(TASK_PRIORITY.LOW), label: "Low" },
+    { value: String(TASK_PRIORITY.MEDIUM), label: "Medium" },
+    { value: String(TASK_PRIORITY.HIGH), label: "High" },
+  ];
+
+  // Filters tasks based on searchInput, selectedStatus and/or selectedPriority, else returns all tasks
   const filteredTasks = useMemo(() => {
-    if (!searchInput) return tasks;
+    return tasks?.filter((task) => {
+      const matchesSearch = task.title
+        .toLowerCase()
+        .includes(searchInput.toLowerCase());
 
-    return tasks?.filter((task) =>
-      task.title.toLowerCase().includes(searchInput.toLowerCase()),
-    );
-  }, [searchInput, tasks]);
+      const matchesStatus =
+        selectedStatus === "All" || task.status === selectedStatus;
+
+      const matchesPriority =
+        selectedPriority === "All" ||
+        task.priority === Number(selectedPriority);
+
+      return matchesSearch && matchesStatus && matchesPriority;
+    });
+  }, [searchInput, selectedStatus, selectedPriority, tasks]);
 
   return (
     <div>
@@ -39,13 +68,17 @@ export const OpenTasksPanel = () => {
           <Select
             label={"Task status"}
             placeholder="All"
-            data={["All", "Not started", "In progress", "Completed"]}
+            data={statusOptions}
+            value={selectedStatus}
+            onChange={setSelectedStatus}
             defaultValue={"All"}
           />
           <Select
             label={"Task priority"}
             placeholder="All"
-            data={["All", "Low", "Medium", "High"]}
+            data={priorityOptions}
+            value={selectedPriority}
+            onChange={setSelectedPriority}
             defaultValue={"All"}
           />
         </Flex>

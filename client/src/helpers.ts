@@ -1,3 +1,5 @@
+import type { Task } from "./types/task.types";
+
 export const BASE_URL = "http://localhost:3000";
 
 export enum TASK_STATUS {
@@ -36,4 +38,39 @@ export const getTaskPriorityNbr = (priority: string) => {
     default:
       return 0;
   }
+};
+
+export const filterAndSortTasks = (
+  tasks: Task[],
+  searchInput: string,
+  selectedStatus: string,
+  selectedPriority: string,
+  sortBy: string,
+  isAscending: boolean,
+) => {
+  return tasks
+    .filter((task) => {
+      const matchesSearch = task.title
+        .toLowerCase()
+        .includes(searchInput.toLowerCase());
+      const matchesStatus =
+        selectedStatus === "All" || task.status === selectedStatus;
+      const matchesPriority =
+        selectedPriority === "All" ||
+        task.priority === Number(selectedPriority);
+      return matchesSearch && matchesStatus && matchesPriority;
+    })
+    .sort((a, b) => {
+      if (sortBy === "title") {
+        return isAscending
+          ? a.title.localeCompare(b.title)
+          : b.title.localeCompare(a.title);
+        // biome-ignore lint/style/noUselessElse: <explanation>
+      } else if (sortBy === "created") {
+        return isAscending
+          ? Number(new Date(a.createdAt)) - Number(new Date(b.createdAt))
+          : Number(new Date(b.createdAt)) - Number(new Date(a.createdAt));
+      }
+      return 0;
+    });
 };

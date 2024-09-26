@@ -1,7 +1,12 @@
-import { Box, Flex, Select, Text, TextInput, Title } from "@mantine/core";
+import { ActionIcon, Box, Flex, Select, Text, TextInput } from "@mantine/core";
 import { useMemo, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { TASK_PRIORITY, TASK_STATUS } from "../../../helpers";
+import { LuArrowUpDown } from "react-icons/lu";
+import {
+  TASK_PRIORITY,
+  TASK_STATUS,
+  filterAndSortTasks,
+} from "../../../helpers";
 import { useAuth } from "../../../hooks/useAuth";
 import { useTasksByUserId } from "../../../hooks/useTasksByUserId";
 import { TaskListItem } from "../../molecule/TaskListItem";
@@ -18,6 +23,8 @@ export const OpenTasksPanel = () => {
   const [selectedPriority, setSelectedPriority] = useState<string | null>(
     "All",
   );
+  const [sortBy, setSortBy] = useState("created");
+  const [isAscending, setIsAscending] = useState(true);
 
   // Task status & priority options
   const statusOptions = [
@@ -34,29 +41,33 @@ export const OpenTasksPanel = () => {
     { value: String(TASK_PRIORITY.HIGH), label: "High" },
   ];
 
+  const sortOptions = [
+    { value: "title", label: "Task title (A to Z)" },
+    { value: "created", label: "Created (Newest to oldest)" },
+  ];
+
   // Filters tasks based on searchInput, selectedStatus and/or selectedPriority, else returns all tasks
   const filteredTasks = useMemo(() => {
-    return tasks?.filter((task) => {
-      const matchesSearch = task.title
-        .toLowerCase()
-        .includes(searchInput.toLowerCase());
-
-      const matchesStatus =
-        selectedStatus === "All" || task.status === selectedStatus;
-
-      const matchesPriority =
-        selectedPriority === "All" ||
-        task.priority === Number(selectedPriority);
-
-      return matchesSearch && matchesStatus && matchesPriority;
-    });
-  }, [searchInput, selectedStatus, selectedPriority, tasks]);
+    return filterAndSortTasks(
+      tasks ?? [],
+      searchInput,
+      selectedStatus ?? "",
+      selectedPriority ?? "",
+      sortBy,
+      isAscending,
+    );
+  }, [
+    tasks,
+    searchInput,
+    selectedStatus,
+    selectedPriority,
+    sortBy,
+    isAscending,
+  ]);
 
   return (
     <div>
       <Box px={"xs"} mt={"md"}>
-        <Title order={2}>Open tasks</Title>
-
         <TextInput
           placeholder="Search"
           leftSection={<FaSearch />}
@@ -64,7 +75,7 @@ export const OpenTasksPanel = () => {
           onChange={(e) => setSearchInput(e.target.value)}
         />
 
-        <Flex gap={"xs"}>
+        <Flex gap={"xs"} mt={"sm"}>
           <Select
             label={"Task status"}
             placeholder="All"
@@ -81,6 +92,28 @@ export const OpenTasksPanel = () => {
             onChange={setSelectedPriority}
             defaultValue={"All"}
           />
+        </Flex>
+
+        <Flex align={"end"} justify={"space-between"} gap={"sm"}>
+          <Select
+            w={"100%"}
+            label={"Sort by"}
+            data={sortOptions}
+            value={sortBy}
+            onChange={(value) => {
+              if (value) {
+                setSortBy(value);
+              }
+            }}
+            defaultValue={"created"}
+          />
+
+          <ActionIcon
+            size={"36px"}
+            onClick={() => setIsAscending(!isAscending)}
+          >
+            <LuArrowUpDown size={24} />
+          </ActionIcon>
         </Flex>
       </Box>
 

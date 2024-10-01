@@ -24,7 +24,7 @@ export const OpenTasksPanel = () => {
     "All",
   );
   const [sortBy, setSortBy] = useState("created");
-  const [isAscending, setIsAscending] = useState(true);
+  const [isAscending, setIsAscending] = useState(false);
 
   // Task status & priority options
   const statusOptions = [
